@@ -1,0 +1,30 @@
+module sensorNetwork {
+
+   struct Sensor {
+      long id;
+      long temperature;
+      long ph;
+      long color;
+   };
+
+   typedef sequence <Sensor> Sensors;
+
+   interface SensorNetwork {
+
+      void addSensorToNetwork(in Sensor sensor);
+
+      void deleteSensorFromNetwork(in Sensor sensor);
+
+      void updateTemperatureValueToSensor(in Sensor sensor, in long temperature);
+
+      void updatePhValueToSensor(in Sensor sensor, in long ph);
+
+      void updateColorValueToSensor(in Sensor sensor, in long color);
+
+      Sensors getSensors();
+
+      string getName();
+
+      void start();
+   };
+};

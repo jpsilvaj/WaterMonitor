@@ -9,6 +9,18 @@ module sensorNetwork {
 
    typedef sequence <Sensor> Sensors;
 
+   exception TemperatureOutOfBoundsException{
+      String message;
+   }
+
+   exception PhOutOfBoundsException{
+      String message;
+   }
+
+   exception ColorOutOfBoundsException{
+         String message;
+   }
+
    interface SensorNetwork {
 
       void addSensorToNetwork(in Sensor sensor);
@@ -23,8 +35,5 @@ module sensorNetwork {
 
       Sensors getSensors();
 
-      string getName();
-
-      void start();
    };
 };

@@ -1,9 +1,4 @@
-package br.edu.ifce.watermonitoring.server;
-
-import sensorNetwork.utils.Constants;
-import sensorNetwork.utils.RangeColor;
-import sensorNetwork.utils.RangePH;
-import sensorNetwork.utils.RangeTemperature;
+package sensorNetwork.utils;
 
 /**
  * Created by jp-desktop on 26/03/2015.

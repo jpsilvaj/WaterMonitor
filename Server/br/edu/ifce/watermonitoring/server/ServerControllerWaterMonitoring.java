@@ -6,6 +6,7 @@ import org.omg.CosNaming.NamingContext;
 import org.omg.CosNaming.NamingContextHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
+import sensorNetwork.Sensor;
 
 /**
  * Created by jp-desktop on 26/03/2015.
@@ -22,15 +23,16 @@ public class ServerControllerWaterMonitoring  {
 
             NamingContext naming = NamingContextHelper.narrow(obj);
 
-            SensorNetworkImpl sensorNetwork = new SensorNetworkImpl();
+            SensorNetworkImpl sensorNetwork = new SensorNetworkImpl(obj,1);
+
+            Sensor sensor = new Sensor(1,30,20,3);
+            sensorNetwork.addSensorToNetwork(sensor);
 
             org.omg.CORBA.Object objRef = rootPOA.servant_to_reference(sensorNetwork);
-            NameComponent[] name = { new NameComponent("SensorNetwork", "ServerControllerWaterMonitoring") };
+            NameComponent[] name = { new NameComponent("SensorNetwork", "ServerNetworkImpl") };
 
             naming.rebind(name, objRef);
             rootPOA.the_POAManager().activate();
-
-            sensorNetwork.start();
 
             orb.run();
         } catch (Exception ex) {

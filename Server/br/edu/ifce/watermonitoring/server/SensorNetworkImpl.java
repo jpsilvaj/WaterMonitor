@@ -1,25 +1,27 @@
 package br.edu.ifce.watermonitoring.server;
 
 import sensorNetwork.Sensor;
-
+import sensorNetwork.SensorNetworkPOA;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by jp-desktop on 26/03/2015.
  */
-public class SensorNetworkImpl extends sensorNetwork.SensorNetworkPOA{
+public class SensorNetworkImpl extends SensorNetworkPOA {
 
     private int id;
     private Map<Integer,Sensor> sensors;
 
 
-    public SensorNetworkImpl(){
+    public SensorNetworkImpl(Object nameService, int id){
         super();
+        sensors = new HashMap();
     }
 
     @Override
     public void addSensorToNetwork(Sensor sensor) {
-        this.sensors.put(sensor.id,sensor);
+        this.sensors.put(sensor.id, sensor);
     }
 
     @Override
@@ -43,18 +45,16 @@ public class SensorNetworkImpl extends sensorNetwork.SensorNetworkPOA{
     }
 
     @Override
-    public Sensor[] getSensors() {
-        return new Sensor[0];
-    }
+    public Sensor[] getSensors(){
+        Sensor[] sensorsArray = new Sensor[this.sensors.size()];
 
-    @Override
-    public String getName() {
-        return null;
-    }
+        int i = 0;
+        for(Object obj : this.sensors.values()){
+            sensorsArray[i] = (Sensor) obj;
+            i++;
+        }
 
-    @Override
-    public void start() {
-
+        return sensorsArray;
     }
 
 }

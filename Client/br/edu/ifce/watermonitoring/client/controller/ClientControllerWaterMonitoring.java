@@ -34,8 +34,7 @@ public class ClientControllerWaterMonitoring {
             namingContext = NamingContextHelper.narrow(nameService);
             namingContextExt = NamingContextExtHelper.narrow(nameService);
             getTheSensorNetworkFromORB();
-            updateValueToNetworkSensorPanel();
-            WaterMonitoringView waterMonitoringView = new WaterMonitoringView();
+            waterMonitoringView = new WaterMonitoringView();
         } catch (InvalidName e) {
             e.printStackTrace();
         }

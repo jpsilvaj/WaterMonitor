@@ -2,12 +2,15 @@ package br.edu.ifce.watermonitoring.client.controller;
 
 import br.edu.ifce.watermonitoring.client.Exception.SensorCannotFindException;
 import br.edu.ifce.watermonitoring.client.view.WaterMonitoringView;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CORBA.Object;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.CannotProceed;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 import sensorNetwork.Sensor;
 import sensorNetwork.SensorNetwork;
 import sensorNetwork.SensorNetworkHelper;
@@ -24,6 +27,7 @@ public class ClientControllerWaterMonitoring {
     private static NamingContextExt namingContextExt;
     private static SensorNetwork sensorNetwork;
     private static WaterMonitoringView waterMonitoringView;
+    private static Sensor[] sensors;
 
 
     public static void main(String args[]){
@@ -47,24 +51,13 @@ public class ClientControllerWaterMonitoring {
         try {
             objRef = namingContext.resolve(name);
             sensorNetwork = SensorNetworkHelper.narrow(objRef);
+            sensors  = sensorNetwork.getSensors();
         } catch (NotFound notFound) {
             notFound.printStackTrace();
         } catch (CannotProceed cannotProceed) {
             cannotProceed.printStackTrace();
         } catch (org.omg.CosNaming.NamingContextPackage.InvalidName invalidName) {
             invalidName.printStackTrace();
-        }
-    }
-
-    private static void updateValueToNetworkSensorPanel(){
-        Sensor[] sensors  = sensorNetwork.getSensors();
-        for(Sensor sensor : sensors){
-            try {
-                waterMonitoringView.updateSensorValueInPanel(sensor);
-            } catch (SensorCannotFindException e) {
-                e.printStackTrace();
-                //TODO:Implement exception which sensor cannot found
-            }
         }
     }
 
@@ -78,5 +71,32 @@ public class ClientControllerWaterMonitoring {
 
     public static void updateColorSensorValueToServer(Sensor sensor, int color) {
         sensorNetwork.updateColorValueToSensor(sensor,color);
+    }
+    
+    public static void createSensor(int temperature, int ph, int color){
+    	Sensor sensor = new Sensor(sensors.length,temperature, ph, color);
+    	addSensorToServer(sensor);
+    }
+    
+    public static void removeSensor(Sensor sensor){
+    	sensors = ArrayUtils.removeElement(sensors, sensor);
+    	sensorNetwork.deleteSensorFromNetwork(sensor);
+    }
+    
+    private static void addSensorToServer(Sensor sensor){
+    	sensorNetwork.addSensorToNetwork(sensor);
+    	updateValueToNetworkSensorPanel();
+    }
+    
+    private static void updateValueToNetworkSensorPanel(){
+        sensors  = sensorNetwork.getSensors();
+        for(Sensor sensor : sensors){
+            try {
+                waterMonitoringView.updateSensorValueInPanel(sensor);
+            } catch (SensorCannotFindException e) {
+                e.printStackTrace();
+                //TODO:Implement exception which sensor cannot found
+            }
+        }
     }
 }

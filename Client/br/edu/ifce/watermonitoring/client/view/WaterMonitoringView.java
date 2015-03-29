@@ -1,13 +1,15 @@
 package br.edu.ifce.watermonitoring.client.view;
 
-import br.edu.ifce.watermonitoring.client.Exception.SensorCannotFindException;
-import br.edu.ifce.watermonitoring.client.handler.WaterMonitoringListener;
+import java.awt.Container;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+
 import net.miginfocom.swing.MigLayout;
 import sensorNetwork.Sensor;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
+import br.edu.ifce.watermonitoring.client.Exception.SensorCannotFindException;
+import br.edu.ifce.watermonitoring.client.controller.ClientControllerWaterMonitoring;
+import br.edu.ifce.watermonitoring.client.handler.WaterMonitoringListener;
 
 /**
  * Created by jp-desktop on 28/03/2015.
@@ -58,7 +60,9 @@ public class WaterMonitoringView extends JFrame {
         this.networkSensorPanel = networkSensorPanel;
     }
 
-    public void addSensorToPanel(Sensor sensor){
+    public void addSensorToPanel(int temperature, int ph, int color){
+    	Sensor sensor = new Sensor(listOfSensors.size(), temperature, ph, color);
+    	ClientControllerWaterMonitoring.addSensorToServer(sensor);
         this.listOfSensors.add(sensor);
         this.networkSensorPanel.addSensorPanel(sensor);
     }

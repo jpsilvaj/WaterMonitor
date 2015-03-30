@@ -45,6 +45,7 @@ public class ClientControllerWaterMonitoring {
             getTheSensorNetworkFromORB();
             waterMonitoringView = new WaterMonitoringView();
             updateValueToNetworkSensorPanel();
+            //TODO: Start thread to update sensors
         } catch (InvalidName e) {
             e.printStackTrace();
         }

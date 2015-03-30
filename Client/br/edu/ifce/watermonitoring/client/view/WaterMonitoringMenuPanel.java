@@ -33,21 +33,21 @@ public class WaterMonitoringMenuPanel extends JPanel{
             eMenuItem.setActionCommand("exit");
             eMenuItem.addActionListener( new MenuListener());
 
-            JMenu note = new JMenu("Sensor");
-            note.setMnemonic(KeyEvent.VK_R);
-            ImageIcon noteIcon = new ImageIcon("sensor.png");
+            JMenu sensor = new JMenu("Sensor");
+            sensor.setMnemonic(KeyEvent.VK_R);
+            ImageIcon sensorIcon = new ImageIcon("sensor.png");
 
-            JMenuItem createNoteMenuItem = new JMenuItem("Create sensor", noteIcon);
-            createNoteMenuItem.setMnemonic(KeyEvent.VK_C);
-            createNoteMenuItem.setToolTipText("Create sensor");
-            createNoteMenuItem.setActionCommand("create_sensor");
-            createNoteMenuItem.addActionListener(new MenuListener());
+            JMenuItem createSensorMenuItem = new JMenuItem("Create sensor", sensorIcon);
+            createSensorMenuItem.setMnemonic(KeyEvent.VK_C);
+            createSensorMenuItem.setToolTipText("Create sensor");
+            createSensorMenuItem.setActionCommand("create_sensor");
+            createSensorMenuItem.addActionListener(new MenuListener());
 
-            JMenuItem deleteNoteMenuItem = new JMenuItem("Delete sensor", noteIcon);
-            deleteNoteMenuItem.setMnemonic(KeyEvent.VK_Q);
-            deleteNoteMenuItem.setToolTipText("Delete sensor");
-            deleteNoteMenuItem.setActionCommand("delete_sensor");
-            deleteNoteMenuItem.addActionListener( new MenuListener());
+            JMenuItem deleteSensorMenuItem = new JMenuItem("Delete sensor", sensorIcon);
+            deleteSensorMenuItem.setMnemonic(KeyEvent.VK_Q);
+            deleteSensorMenuItem.setToolTipText("Delete sensor");
+            deleteSensorMenuItem.setActionCommand("delete_sensor");
+            deleteSensorMenuItem.addActionListener( new MenuListener());
 
             JMenu help = new JMenu("Help");
             help.setMnemonic(KeyEvent.VK_H);
@@ -60,12 +60,12 @@ public class WaterMonitoringMenuPanel extends JPanel{
             aboutMenuItem.addActionListener(new MenuListener());
 
             file.add(eMenuItem);
-            note.add(createNoteMenuItem);
-            note.add(deleteNoteMenuItem);
+            sensor.add(createSensorMenuItem);
+            sensor.add(deleteSensorMenuItem);
             help.add(aboutMenuItem);
 
             menuBar.add(file);
-            menuBar.add(note);
+            menuBar.add(sensor);
             menuBar.add(help);
 
             this.add(menuBar);

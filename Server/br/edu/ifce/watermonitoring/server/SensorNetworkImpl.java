@@ -56,5 +56,4 @@ public class SensorNetworkImpl extends SensorNetworkPOA {
 
         return sensorsArray;
     }
-
 }

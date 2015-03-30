@@ -25,9 +25,6 @@ public class ServerControllerWaterMonitoring  {
 
             SensorNetworkImpl sensorNetwork = new SensorNetworkImpl(obj,1);
 
-            Sensor sensor = new Sensor(1,30,20,3);
-            sensorNetwork.addSensorToNetwork(sensor);
-
             org.omg.CORBA.Object objRef = rootPOA.servant_to_reference(sensorNetwork);
             NameComponent[] name = { new NameComponent("SensorNetwork", "ServerNetworkImpl") };
 

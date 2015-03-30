@@ -26,6 +26,7 @@ public class WaterMonitoringView extends JFrame {
 
     public WaterMonitoringView(){
         super("Water Monitoring - CORBA");
+        this.listOfSensors = new ArrayList<Sensor>();
         this.setSize(840,680);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -33,7 +34,7 @@ public class WaterMonitoringView extends JFrame {
         this.setTitle("Water Monitoring - CORBA");
         this.addPanels();
         this.addWindowListener(new WaterMonitoringListener());
-        this.pack();
+        //this.pack();
         this.setVisible(true);
     }
 
@@ -41,7 +42,7 @@ public class WaterMonitoringView extends JFrame {
         Container c = getContentPane();
         c.setLayout(new MigLayout("insets 15 15 15 15"));
         c.add(waterMonitoringMenuPanel, "dock north");
-        c.add(networkSensorPanel, "dock center");
+        c.add(networkSensorPanel, "span, grow");
     }
 
     public WaterMonitoringMenuPanel getWaterMonitoringMenuPanel() {
@@ -62,9 +63,9 @@ public class WaterMonitoringView extends JFrame {
 
     public void addSensorToPanel(int temperature, int ph, int color){
     	Sensor sensor = new Sensor(listOfSensors.size(), temperature, ph, color);
-    	ClientControllerWaterMonitoring.addSensorToServer(sensor);
         this.listOfSensors.add(sensor);
         this.networkSensorPanel.addSensorPanel(sensor);
+        this.validate();
     }
 
     public void updateSensorValueInPanel(Sensor sensor) throws SensorCannotFindException {
@@ -81,6 +82,7 @@ public class WaterMonitoringView extends JFrame {
             SensorPanel sensorPanel = networkSensorPanel.findSensorPanel(sensor);
             networkSensorPanel.removeSensorPanel(sensorPanel);
             this.listOfSensors.remove(sensor);
+            this.validate();
         } catch (SensorCannotFindException e) {
             e.printStackTrace();
         }

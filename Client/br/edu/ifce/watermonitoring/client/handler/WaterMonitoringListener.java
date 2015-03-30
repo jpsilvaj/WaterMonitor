@@ -14,13 +14,10 @@ public class WaterMonitoringListener implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand() == "set_temperature_value"){
-            //TODO:Implement event to change temperature value
         }
         else if(e.getActionCommand() == "set_ph_value"){
-            //TODO:Implement event to change ph value
         }
         else if(e.getActionCommand() == "set_color_value"){
-            //TODO:Implement event to change color value
         }
 
     }

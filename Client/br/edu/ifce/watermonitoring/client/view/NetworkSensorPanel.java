@@ -4,6 +4,7 @@ import br.edu.ifce.watermonitoring.client.Exception.SensorCannotFindException;
 import sensorNetwork.Sensor;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 /**
@@ -11,7 +12,8 @@ import java.awt.*;
  */
 public class NetworkSensorPanel extends JPanel {
     public NetworkSensorPanel(){
-        this.setLayout(new FlowLayout());
+        this.setLayout(new GridLayout(0,3,5,5));
+        
     }
 
     public void addSensorPanel(Sensor sensor){
@@ -28,7 +30,7 @@ public class NetworkSensorPanel extends JPanel {
         for(Component component :components){
             if(component instanceof SensorPanel){
                 SensorPanel sensorPanel = (SensorPanel)component;
-                if(sensorPanel.getSensor().equals(sensor)){
+                if(sensorPanel.getSensor().id == sensor.id){
                     return sensorPanel;
                 }
             }
